@@ -107,18 +107,20 @@
 </template>
 
 <style scoped>
-/* 样式部分 */
+/* Google Material Design Style - 支持暗黑模式 */
 
-/* 将变量定义在 wrapper 内部，确保局部生效 */
+/* 1. 默认（亮色模式）变量定义 */
 .main-wrapper {
-  --primary-color: #1a73e8; /* Google Blue */
-  --text-primary: #202124;
-  --text-secondary: #5f6368;
-  --bg-color: #f8f9fa;
-  --card-bg: #ffffff;
-  --divider-color: #e8eaed;
-  --chip-bg: #e8f0fe;
-  --chip-text: #1967d2;
+  /* 亮色模式下的颜色 */
+  --primary-color: #1a73e8;       /* Google 蓝 */
+  --text-primary: #202124;        /* 深灰字 */
+  --text-secondary: #5f6368;      /* 浅灰字 */
+  --bg-color: #f8f9fa;            /* 网页背景灰 */
+  --card-bg: #ffffff;             /* 卡片背景白 */
+  --divider-color: #e8eaed;       /* 分割线 */
+  --chip-bg: #e8f0fe;             /* 标签背景浅蓝 */
+  --chip-text: #1967d2;           /* 标签文字深蓝 */
+  --box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3), 0 4px 8px 3px rgba(60, 64, 67, 0.15);
   
   font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
   background-color: var(--bg-color);
@@ -126,13 +128,28 @@
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   
-  /* 布局设置：确保占满全屏并居中 */
+  /* 布局设置 */
   display: flex;
   justify-content: center;
   padding: 40px 16px;
   min-height: 100vh;
   box-sizing: border-box;
   width: 100%;
+  transition: background-color 0.3s, color 0.3s; /* 让颜色切换有过渡动画 */
+}
+
+/* 2. 暗黑模式变量覆盖 (关键代码！) */
+/* 当 HTML 标签有 .dark 类时，修改 .main-wrapper 里的变量 */
+:global(.dark) .main-wrapper {
+  --primary-color: #8ab4f8;       /* 浅蓝色（暗色模式下蓝色要亮一点才看得清） */
+  --text-primary: #e8eaed;        /* 浅灰白字 */
+  --text-secondary: #9aa0a6;      /* 灰字 */
+  --bg-color: #1b1b1f;            /* 深色背景 */
+  --card-bg: #202124;             /* 深色卡片 */
+  --divider-color: #3c4043;       /* 深色分割线 */
+  --chip-bg: #172840;             /* 标签背景深蓝 */
+  --chip-text: #8ab4f8;           /* 标签文字浅蓝 */
+  --box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.6), 0 4px 8px 3px rgba(0, 0, 0, 0.3); /* 加深阴影 */
 }
 
 .container {
@@ -140,10 +157,10 @@
   max-width: 720px;
   background-color: var(--card-bg);
   border-radius: 8px;
-  /* 卡片阴影 */
-  box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3), 0 4px 8px 3px rgba(60, 64, 67, 0.15);
+  box-shadow: var(--box-shadow);
   padding: 48px;
   box-sizing: border-box;
+  transition: background-color 0.3s;
 }
 
 /* Header Section */
@@ -162,7 +179,7 @@
   width: 80px;
   height: 80px;
   background-color: var(--primary-color);
-  color: white;
+  color: #ffffff; /* 头像里的字永远是白色，不用变 */
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -170,6 +187,10 @@
   font-size: 36px;
   font-weight: 500;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+:global(.dark) .avatar {
+  color: #1f1f1f; /* 暗色模式下，蓝色背景变亮了，这里的字最好变黑一点增加对比度 */
 }
 
 .profile-info h1 {
@@ -229,11 +250,17 @@ p {
 
 /* 68FC Story Boxes */
 .story-box {
+  /* 这里也要单独处理一下背景色，太亮了在暗色模式刺眼 */
   background-color: #f1f3f4;
   padding: 16px;
   border-radius: 8px;
   margin-bottom: 16px;
   border-left: 4px solid var(--primary-color);
+}
+
+/* 暗色模式下的 Story Box 背景 */
+:global(.dark) .story-box {
+  background-color: #303134; 
 }
 
 .story-box p {
@@ -297,7 +324,7 @@ p {
 .button {
   display: inline-block;
   background-color: var(--primary-color);
-  color: white;
+  color: #ffffff;
   padding: 10px 24px;
   border-radius: 4px;
   text-decoration: none;
@@ -306,8 +333,12 @@ p {
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
+:global(.dark) .button {
+  color: #1f1f1f; /* 暗色按钮文字变深，增加可读性 */
+}
+
 .button:hover {
-  background-color: #1765cc;
+  filter: brightness(1.1); /* 鼠标悬停变亮一点 */
   box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
@@ -316,7 +347,7 @@ footer {
   margin-top: 60px;
   text-align: center;
   font-size: 14px;
-  color: #9aa0a6;
+  color: var(--text-secondary);
   border-top: 1px solid var(--divider-color);
   padding-top: 24px;
 }
