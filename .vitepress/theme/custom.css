@@ -1,17 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-/* --- 修改开始 --- */
+/* --- 针对主页 (my-custom-home) 的特殊样式 --- */
 
-/* 注意：我们在前面加了 .my-custom-home */
-/* 只有当页面拥有这个类名时（也就是只在主页），才隐藏导航栏 */
-.my-custom-home .VPNav,
+/* 1. 找回导航栏，但隐藏底部的默认页脚（如果你有自定义页脚的话） */
 .my-custom-home .VPFooter {
   display: none !important;
 }
 
-/* 只有在主页，才把内边距设为 0 */
+/* 2. 这里的重点是：不要再写 .VPNav { display: none } 了！删掉它！ */
+
+/* 3. 去掉默认的内容边距，让你的组件能占满宽度 */
 .my-custom-home .VPContent {
   padding: 0 !important;
 }
 
-/* --- 修改结束 --- */
+/* 4. 隐藏左侧侧边栏的“占位符”（即使 sidebar: false，有时候还会留白） */
+.my-custom-home .VPSidebar {
+  display: none !important;
+}

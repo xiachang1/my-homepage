@@ -131,7 +131,7 @@
   /* 布局设置 */
   display: flex;
   justify-content: center;
-  padding: 40px 16px;
+  padding-top: calc(var(--vp-nav-height) + 40px); 
   min-height: 100vh;
   box-sizing: border-box;
   width: 100%;
