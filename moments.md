@@ -36,9 +36,9 @@ const photoList = [
 
 | 文件名 | 类型 | 大小 | 下载 |
 | :--- | :---: | :---: | :---: |
-| **68FC 战术手稿.pdf** | PDF | 2.4 MB | [点击下载](/moments/tactics.pdf) |
-| **高中毕业纪念册.zip** | ZIP | 50 MB | [点击下载](/moments/memory.zip) |
-| **联赛规则章程 v1.0** | DOCX | 150 KB | [点击下载](/moments/rules.docx) |
+| **68FC 战术手稿.pdf** | PDF | 2.4 MB | [点击下载]() |
+| **高中毕业纪念册.zip** | ZIP | 50 MB | [点击下载]() |
+| **联赛规则章程 v1.0** | DOCX | 150 KB | [点击下载]() |
 
 <style>
 table {
