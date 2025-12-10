@@ -1,17 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-/* --- 修改开始 --- */
+/* --- 首页专用样式 (只有当页面 class 是 custom-home 时生效) --- */
 
-/* 注意：我们在前面加了 .my-custom-home */
-/* 只有当页面拥有这个类名时（也就是只在主页），才隐藏导航栏 */
-.my-custom-home .VPNav,
-.my-custom-home .VPFooter {
+/* 1. 在首页隐藏官方组件 */
+.custom-home .VPNav, 
+.custom-home .VPFooter, 
+.custom-home .VPSidebar, 
+.custom-home .VPLocalNav {
   display: none !important;
 }
 
-/* 只有在主页，才把内边距设为 0 */
-.my-custom-home .VPContent {
+/* 2. 在首页去除内边距 */
+.custom-home .VPContent {
   padding: 0 !important;
 }
 
-/* --- 修改结束 --- */
+/* --- 全局样式 --- */
+
+#app {
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}

@@ -1,11 +1,12 @@
 import DefaultTheme from 'vitepress/theme'
 import HomeProfile from '../components/HomeProfile.vue'
-import './custom.css' // 下一步创建这个
+import MemoryGallery from '../components/MemoryGallery.vue' // <--- 1. 引入新组件
+import './custom.css'
 
 export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
-    // 注册全局组件
     app.component('HomeProfile', HomeProfile)
+    app.component('MemoryGallery', MemoryGallery) // <--- 2. 注册新组件
   }
 }

@@ -1,28 +1,46 @@
 import { defineConfig } from 'vitepress'
 
-// https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "my personal homepage",
-  description: "my personal homepage",
+  title: "王一尧的主页",
+  description: "Code, Football, and Art.",
+  
+  // appearance: true, (已移除)
+
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
+    // 顶部导航
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      { text: '🏠 首页', link: '/' },
+      { text: '🌸 朝花夕拾', link: '/moments' },
+      { text: '⚽ 68FC', link: '/68fc' },
+      { text: '🔴 利物浦', link: '/liverpool' }
     ],
 
+    // 侧边栏
     sidebar: [
       {
-        text: 'Examples',
+        text: '🌸 记忆博物馆',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          { text: '朝花夕拾', link: '/moments' }
+        ]
+      },
+      {
+        text: '⚽ 绿茵岁月',
+        items: [
+          { text: '68FC 传奇', link: '/68fc' },
+          { text: '利物浦 YNWA', link: '/liverpool' }
+        ]
+      },
+      {
+        text: '👨‍💻 个人档案',
+        items: [
+          { text: '关于我 & 简历', link: '/about' }
         ]
       }
     ],
 
+    // 社交链接
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/xiachang1' }
     ]
   }
 })
