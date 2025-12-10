@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "my personal homepage",
   description: "my personal homepage",
+   appearance: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
