@@ -3,21 +3,26 @@ title: 朝花夕拾
 outline: deep
 ---
 
+<script setup>
+// 我们把数据定义在这里，既清晰又不会报错
+const photoList = [
+  { image: '/moments/2025届聊城一中老校区高三68班.jpg', text: '2025届聊城一中老校区高三68班' },
+  { image: '/moments/青春应无悔.jpg', text: 'my bro' },
+  { image: '/moments/欧冠冠军liverpool.jpg', text: '利物浦欧冠之夜' },
+  { image: '/background/bg.jpg', text: '星月夜 - 我们的精神图腾' }
+]
+</script>
+
 # 🌸 朝花夕拾
 
 > 回忆是时间的琥珀，封存着我们最珍贵的瞬间。
 
 ## 📸 影像长廊
 
-这里记录了 68FC 的兄弟们、利物浦的夺冠时刻，以及那些不想忘记的瞬间。
+这里记录了那些不想忘记的瞬间。
 
-<!-- 使用我们刚才写的组件，注意格式！ -->
-<MemoryGallery :items="[
-  { image: '/moments/photo1.jpg', text: '2023 冬天，联赛初创的合影' },
-  { image: '/moments/photo2.jpg', text: '徐鹏飞的点球瞬间' },
-  { image: '/moments/photo3.jpg', text: '利物浦欧冠之夜' },
-  { image: '/bg.jpg', text: '星月夜 - 我们的精神图腾' }
-]" />
+<!-- 现在只需要传一个变量名 galleryItems，清爽干净 -->
+<MemoryGallery :items="photoList" />
 
 ---
 
@@ -36,11 +41,10 @@ outline: deep
 | **联赛规则章程 v1.0** | DOCX | 150 KB | [点击下载](/moments/rules.docx) |
 
 <style>
-/* 给表格加一点样式，让它更好看 */
 table {
   width: 100%;
   margin-top: 20px;
-  display: table; /* 强制表格展开 */
+  display: table;
 }
 th { background-color: #f1f3f4; }
 a { color: #1a73e8; text-decoration: none; font-weight: bold; }

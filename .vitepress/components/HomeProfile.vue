@@ -56,7 +56,7 @@ const go = (path) => {
   min-height: 100vh;
   /* 梵高-星月夜 高清图 */
 /* 直接用 /bg.jpg 引用，VitePress 会自动去 public 文件夹找 */
-background: url('/bg.jpg') no-repeat center center;  background-size: cover;
+background: url('/background/bg.jpg') no-repeat center center;  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
