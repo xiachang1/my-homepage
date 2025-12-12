@@ -1,22 +1,45 @@
 <script setup>
 import { useRouter } from 'vitepress'
+import { ref, onMounted } from 'vue'
+
 const router = useRouter()
 const go = (path) => {
   router.go(path)
 }
+
+// --- 打字机逻辑 ---
+const sloganText = "Code, Football, and Art." 
+const displayedSlogan = ref("") 
+let i = 0
+
+const typeWriter = () => {
+  if (i < sloganText.length) {
+    displayedSlogan.value += sloganText.charAt(i)
+    i++
+    setTimeout(typeWriter, 100) 
+  }
+}
+
+onMounted(() => {
+  typeWriter() 
+})
 </script>
 
 <template>
   <div class="art-wrapper">
-    <!-- 遮罩层：让背景变暗一点，保证文字看得清 -->
+    <!-- 遮罩层 -->
     <div class="overlay"></div>
 
     <div class="content-center">
-      <!-- 极简的个人标识 -->
+      
+      <!-- ▼▼▼ 找回了丢失的这一块！ ▼▼▼ -->
       <div class="identity">
         <h1 class="name">王一尧</h1>
-        <p class="slogan">Code, Football, and Art.</p>
+        <p class="slogan">
+          {{ displayedSlogan }}<span class="cursor">|</span>
+        </p>
       </div>
+      <!-- ▲▲▲ ▲▲▲ -->
 
       <!-- 核心导航入口 -->
       <nav class="gateway">
@@ -32,12 +55,10 @@ const go = (path) => {
           <span class="icon">🔴</span>
           <span class="text">利物浦</span>
         </div>
-        <!-- ▼▼▼ 新增：朝花夕拾 ▼▼▼ -->
         <div class="gate-item" @click="go('/moments')">
           <span class="icon">🌸</span>
           <span class="text">朝花夕拾</span>
         </div>
-        <!-- ▲▲▲ 新增结束 ▲▲▲ -->
       </nav>
 
       <!-- 底部版权 -->
@@ -54,28 +75,28 @@ const go = (path) => {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  /* 梵高-星月夜 高清图 */
-/* 直接用 /bg.jpg 引用，VitePress 会自动去 public 文件夹找 */
-background: url('/background/bg.jpg') no-repeat center center;  background-size: cover;
+  /* ⚠️ 确保你的 public/background/ 目录下真的有 bg.jpg 这个文件 */
+  background: url('/background/bg.jpg') no-repeat center center;
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
 }
 
-/* 2. 黑色遮罩 (关键：否则字看不清) */
+/* 2. 黑色遮罩 */
 .overlay {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.4); /* 40% 的黑色遮罩 */
-  backdrop-filter: blur(2px);      /* 轻微模糊，增加景深感 */
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
   z-index: 1;
 }
 
 /* 3. 内容容器 */
 .content-center {
   position: relative;
-  z-index: 2; /* 浮在遮罩之上 */
+  z-index: 2;
   text-align: center;
   color: #fff;
   padding: 20px;
@@ -84,7 +105,7 @@ background: url('/background/bg.jpg') no-repeat center center;  background-size:
 
 /* 4. 名字与标语 */
 .name {
-  font-family: 'Times New Roman', serif; /* 衬线字体，更有艺术感 */
+  font-family: 'Times New Roman', serif;
   font-size: 4rem;
   margin: 0;
   letter-spacing: 4px;
@@ -98,6 +119,20 @@ background: url('/background/bg.jpg') no-repeat center center;  background-size:
   margin-top: 10px;
   font-weight: 300;
   letter-spacing: 1px;
+  min-height: 1.5em; /* 防止打字前高度塌陷 */
+}
+
+/* 光标闪烁动画 (移到了外层，确保电脑端也能看到) */
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  vertical-align: middle; /* 对齐光标 */
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* 5. 导航入口 */
@@ -138,7 +173,7 @@ background: url('/background/bg.jpg') no-repeat center center;  background-size:
 }
 
 .gate-item:hover .text {
-  border-color: #fff; /* 鼠标悬停加下划线 */
+  border-color: #fff;
 }
 
 /* 6. 极简页脚 */

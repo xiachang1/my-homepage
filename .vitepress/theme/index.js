@@ -1,6 +1,7 @@
 import DefaultTheme from 'vitepress/theme'
 import HomeProfile from '../components/HomeProfile.vue'
 import MemoryGallery from '../components/MemoryGallery.vue' // <--- 1. 引入新组件
+import LiverpoolPlayer from '../components/LiverpoolPlayer.vue'
 import './custom.css'
 
 export default {
@@ -8,5 +9,6 @@ export default {
   enhanceApp({ app }) {
     app.component('HomeProfile', HomeProfile)
     app.component('MemoryGallery', MemoryGallery) // <--- 2. 注册新组件
+     app.component('LiverpoolPlayer', LiverpoolPlayer) 
   }
 }
