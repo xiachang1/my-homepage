@@ -10,19 +10,12 @@ export default defineConfig({
     // 顶部导航
     nav: [
       { text: '🏠 首页', link: '/' },
-      { text: '🌸 朝花夕拾', link: '/moments' },
       { text: '⚽ 68FC', link: '/68fc' },
       { text: '🔴 利物浦', link: '/liverpool' }
     ],
 
     // 侧边栏
     sidebar: [
-      {
-        text: '🌸 记忆博物馆',
-        items: [
-          { text: '朝花夕拾', link: '/moments' }
-        ]
-      },
       {
         text: '⚽ 绿茵岁月',
         items: [

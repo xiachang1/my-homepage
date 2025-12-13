@@ -55,10 +55,6 @@ onMounted(() => {
           <span class="icon">🔴</span>
           <span class="text">利物浦</span>
         </div>
-        <div class="gate-item" @click="go('/moments')">
-          <span class="icon">🌸</span>
-          <span class="text">朝花夕拾</span>
-        </div>
       </nav>
 
       <!-- 底部版权 -->
