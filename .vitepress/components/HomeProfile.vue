@@ -47,7 +47,8 @@ onMounted(() => {
           <span class="icon">👨‍💻</span>
           <span class="text">关于我</span>
         </div>
-        <div class="gate-item" @click="go('/68fc')">
+                <!-- 修改路径为 /68fc/squad -->
+        <div class="gate-item" @click="go('/68fc/squad')">
           <span class="icon">⚽</span>
           <span class="text">68FC</span>
         </div>

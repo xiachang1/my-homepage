@@ -6,32 +6,46 @@ export default defineConfig({
   
   // appearance: true, (已移除)
 
-  themeConfig: {
-    // 顶部导航
+themeConfig: {
+    // 1. 顶部导航：直达 68FC 专区
     nav: [
       { text: '🏠 首页', link: '/' },
-      { text: '⚽ 68FC', link: '/68fc' },
+      { text: '⚽ 68FC 俱乐部', link: '/68fc/squad', activeMatch: '/68fc/' },
       { text: '🔴 利物浦', link: '/liverpool' }
     ],
 
-    // 侧边栏
-    sidebar: [
-      {
-        text: '⚽ 绿茵岁月',
-        items: [
-          { text: '68FC 传奇', link: '/68fc' },
-          { text: '利物浦 YNWA', link: '/liverpool' }
-        ]
-      },
-      {
-        text: '👨‍💻 个人档案',
-        items: [
-          { text: '关于我 & 简历', link: '/about' }
-        ]
-      }
-    ],
+    // 2. 侧边栏：专业的分类
+    sidebar: {
+      // 当用户进入 /68fc/ 目录时，显示这个侧边栏
+      '/68fc/': [
+        {
+          text: '一线队 (First Team)',
+          items: [
+            { text: '🏃‍♂️ 球队阵容', link: '/68fc/squad' },
+            { text: '💰 转会市场', link: '/68fc/market' } // 预留
+          ]
+        },
+        {
+          text: '赛事中心 (Match Center)',
+          items: [
+            { text: '📅 赛程与结果', link: '/68fc/matches' },
+            { text: '📊 数据统计', link: '/68fc/stats' } // 预留
+          ]
+        },
+        {
+          text: '俱乐部 (Club)',
+          items: [
+            { text: '📜 队史与荣誉', link: '/68fc/history' } // 把原来的 68fc.md 改名放这里最好
+          ]
+        }
+      ],
+      
+      // 利物浦的侧边栏保持不变
+      '/liverpool/': [
+        { text: '利物浦', items: [{ text: 'YNWA', link: '/liverpool' }] }
+      ]
+    },
 
-    // 社交链接
     socialLinks: [
       { icon: 'github', link: 'https://github.com/xiachang1' }
     ]
