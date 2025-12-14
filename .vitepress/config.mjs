@@ -10,6 +10,7 @@ themeConfig: {
     // 1. 顶部导航：直达 68FC 专区
     nav: [
       { text: '🏠 首页', link: '/' },
+      { text: 'about me',link: '/about'},
       { text: '⚽ 68FC 俱乐部', link: '/68fc/squad', activeMatch: '/68fc/' },
       { text: '🔴 利物浦', link: '/liverpool' }
     ],

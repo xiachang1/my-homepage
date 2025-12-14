@@ -25,3 +25,24 @@ body {
   margin: 0;
   overflow-x: hidden;
 }
+/* --- medium-zoom 终极修复补丁 --- */
+
+/* 当图片被放大打开时 */
+.medium-zoom-image--opened {
+  /* 1. 核心修复：防止图片保持卡片里的裁切状态，强制显示全貌 */
+  object-fit: contain !important;
+  
+  /* 2. 确保背景是透明的 (配合插件的黑色遮罩) */
+  background: transparent !important;
+  
+  /* 3. 确保层级最高，不被其他东西挡住 */
+  z-index: 99999 !important;
+  
+  /* --- ⚠️ 删除了之前的 width/height/max-width 设置 --- */
+  /* 让插件自动计算大小，这样它就能完美适配屏幕了 */
+}
+
+/* 修复遮罩层级 */
+.medium-zoom-overlay {
+  z-index: 99998 !important;
+}

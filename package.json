@@ -12,6 +12,7 @@
     "vue": "^3.0.0"
   },
   "dependencies": {
-    "echarts": "^6.0.0"
+    "echarts": "^6.0.0",
+    "medium-zoom": "^1.1.0"
   }
 }
