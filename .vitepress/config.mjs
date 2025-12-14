@@ -22,14 +22,12 @@ themeConfig: {
           text: '一线队 (First Team)',
           items: [
             { text: '🏃‍♂️ 球队阵容', link: '/68fc/squad' },
-            { text: '💰 转会市场', link: '/68fc/market' } // 预留
           ]
         },
         {
           text: '赛事中心 (Match Center)',
           items: [
             { text: '📅 赛程与结果', link: '/68fc/matches' },
-            { text: '📊 数据统计', link: '/68fc/stats' } // 预留
           ]
         },
         {
