@@ -3,6 +3,7 @@ title: 利物浦
 outline: deep
 ---
 
+<!-- 1. 悬浮播放器组件 -->
 <LiverpoolPlayer />
 
 # You'll Never Walk Alone 🔴
@@ -11,20 +12,8 @@ outline: deep
 
 ## 🎶 I am YNWA
 
-<div class="lyrics">
-  <p>When you walk through the storm</p>
-  <p>Hold your head up high</p>
-  <p>And don't be afraid of the dark</p>
-  <p>At the end of the storm</p>
-  <p>There's a golden sky</p>
-  <p>And the sweet silver song of the lark</p>
-  <p>Walk on, through the wind</p>
-  <p>Walk on, through the rain</p>
-  <p>Though your dreams be tossed and blown</p>
-  <p>Walk on, walk on, with hope in your heart</p>
-  <p>And you'll never walk alone</p>
-  <p>You'll never walk alone...</p>
-</div>
+<!-- 2. 歌词组件 (这里面已经包含了歌词和金色装饰样式) -->
+<LiverpoolLyrics />
 
 ---
 
@@ -64,151 +53,5 @@ After a 30-year wait, **Jurgen Klopp** led the team to the 2019-20 Premier Leagu
 
 ## ⭐ Legends & Heroes (传奇与英雄)
 
-<div class="player-grid">
-  <!-- 杰拉德 -->
-  <div class="player-card">
-    <div class="img-box">
-      <img src="/liverpool/Gerrard.jpg" alt="Steven Gerrard" loading="lazy">
-    </div>
-    <div class="info">
-      <h3>Steven Gerrard</h3>
-      <span class="role">The Captain Forever</span>
-      <p>永远的队长，伊斯坦布尔奇迹的缔造者，红军的灵魂。</p>
-    </div>
-  </div>
-
-  <!-- 萨拉赫 -->
-  <div class="player-card">
-    <div class="img-box">
-      <img src="/liverpool/salah.jpg" alt="Mohamed Salah" loading="lazy">
-    </div>
-    <div class="info">
-      <h3>Mohamed Salah</h3>
-      <span class="role">The Egyptian King</span>
-      <p>英超记录粉碎机，现役传奇，安菲尔德的法老。</p>
-    </div>
-  </div>
-
-  <!-- 范戴克 -->
-  <div class="player-card">
-    <div class="img-box">
-      <img src="/liverpool/Dijk.jpg" alt="Virgil van Dijk" loading="lazy">
-    </div>
-    <div class="info">
-      <h3>Virgil van Dijk</h3>
-      <span class="role">The Wall</span>
-      <p>后防定海神针，这世上没有人能轻易过掉范戴克。</p>
-    </div>
-  </div>
-
-  <!-- 托雷斯 -->
-  <div class="player-card">
-    <div class="img-box">
-      <img src="/liverpool/Torres.jpg" alt="Fernando Torres" loading="lazy">
-    </div>
-    <div class="info">
-      <h3>Fernando Torres</h3>
-      <span class="role">El Niño (圣婴)</span>
-      <p>那一头飘逸的金发，是无数红军球迷初恋的模样。</p>
-    </div>
-  </div>
-
-  <!-- 亨德森 -->
-  <div class="player-card">
-    <div class="img-box">
-      <img src="/liverpool/Henderson.jpg" alt="Jordan Henderson" loading="lazy">
-    </div>
-    <div class="info">
-      <h3>Jordan Henderson</h3>
-      <span class="role">The Leader</span>
-      <p>他是举起英超和欧冠奖杯的铁血队长，勤勉与领袖力的化身。</p>
-    </div>
-  </div>
-</div>
-
-<!-- 页面样式 -->
-<style>
-/* 歌词样式 */
-.lyrics {
-  text-align: center;
-  font-style: italic;
-  color: #555;
-  margin: 30px 0;
-  line-height: 1.8;
-  font-family: 'Georgia', serif;
-  background: rgba(200, 16, 46, 0.05); /* 淡红色背景 */
-  padding: 20px;
-  border-radius: 8px;
-  border-left: 4px solid #C8102E;
-}
-
-/* 球员网格布局 */
-.player-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-}
-
-/* 球员卡片 */
-.player-card {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  transition: transform 0.3s;
-  border: 1px solid #eee;
-}
-
-.player-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(200, 16, 46, 0.2); /* 红色阴影 */
-}
-
-/* 图片区域 */
-.img-box {
-  width: 100%;
-  height: 250px;
-  overflow: hidden;
-}
-
-.img-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s;
-}
-
-.player-card:hover .img-box img {
-  transform: scale(1.05);
-}
-
-/* 信息区域 */
-.info {
-  padding: 15px;
-  text-align: center;
-}
-
-.info h3 {
-  margin: 0;
-  font-size: 18px;
-  color: #C8102E; /* 利物浦红 */
-}
-
-.info .role {
-  display: block;
-  font-size: 12px;
-  color: #888;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-  margin-top: 4px;
-}
-
-.info p {
-  font-size: 13px;
-  color: #555;
-  margin: 0;
-  line-height: 1.4;
-}
-</style>
+<!-- 3. 传奇球星组件 (这里面已经包含了图片墙和金色卡片样式) -->
+<LiverpoolLegends />

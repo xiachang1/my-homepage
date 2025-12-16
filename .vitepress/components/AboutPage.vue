@@ -1,268 +1,348 @@
 <script setup>
-// 这里不需要复杂的逻辑，主要是静态展示
-const skills = [
-  { name: 'Vue & Vite', icon: 'https://skillicons.dev/icons?i=vue,vite' },
-  { name: 'Python & SQL', icon: 'https://skillicons.dev/icons?i=python,mysql' },
-  { name: 'Design', icon: 'https://skillicons.dev/icons?i=figma,ps' }
-]
+import { useRouter } from 'vitepress'
+const router = useRouter()
+const go = (path) => {
+  router.go(path)
+}
 </script>
 
 <template>
-  <div class="about-wrapper">
+  <div class="retro-body">
     
-    <!-- 1. 顶部大图 / 艺术标语 -->
-    <div class="hero-section">
-      <div class="hero-text">
-        <h1 class="title">Hello, I'm Yiyao.</h1>
-        <p class="subtitle">Software Engineer / Dreamer / KOP</p>
-      </div>
-      <!-- 这是一个“拍立得”风格的照片 -->
-      <div class="polaroid">
-        <!-- 替换成你自己的生活照，或者暂时用梵高 -->
-        <img src="/background/little angel.jpg" alt="Me" /> 
-        <div class="caption">2025 @Liaocheng</div>
+    <!-- 1. 顶部滚动字幕 (Marquee) -->
+    <div class="marquee-container">
+      <div class="marquee-content">
+        WELCOME TO LAN'S DIGITAL GARDEN *** SYSTEM READY *** 欢迎访问 *** 银杏叶落下的地方 *** KEEP IT REAL ***
       </div>
     </div>
 
-    <!-- 2. 叙事段落 (杂志排版) -->
-    <div class="story-section">
-      <p class="drop-cap">
-        我是一名就读于<strong>西南大学</strong>软件工程专业的大一新生。
-        在这个充满 0 和 1 的数字世界里，我正在寻找属于自己的秩序与美感。
-      </p>
-      <p>
-        代码对我来说不仅是工具，更是一种<strong>表达方式</strong>。就像在足球场上寻找空档一样，我也在算法中寻找最优解。
-        如果不写代码，我大概率正在<strong>画画</strong>，或者在琴房里弹奏一曲肖邦。
-      </p>
-    </div>
-
-    <!-- 3. 时间轴 (Timeline) -->
-    <div class="section-title">Timeline</div>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="year">2025 - Present</div>
-        <div class="content">
-          <h3>西南大学 (SWU)</h3>
-          <p>软件工程（中外合作办学） | 开启全栈开发之路</p>
+    <!-- 2. 主容器：模拟复古窗口 -->
+    <div class="main-window">
+      
+      <!-- 窗口标题栏 -->
+      <div class="window-header">
+        <span class="win-title">C:\Users\Lan\Home.exe</span>
+        <div class="win-controls">
+          <span class="btn">_</span>
+          <span class="btn">□</span>
+          <span class="btn">×</span>
         </div>
       </div>
-      <div class="timeline-item">
-        <div class="year">2022 - 2025</div>
-        <div class="content">
-          <h3>聊城一中 (LCYZ)</h3>
-          <p>68FC 创始人之一 / 高中足球联赛经历 / 青春的烙印</p>
-        </div>
+
+      <!-- 窗口内容区 -->
+      <div class="window-content">
+        
+        <!-- 左侧：导航栏 -->
+        <aside class="sidebar">
+          <div class="profile-pic">
+            <!-- 这里用纯CSS画一个像素风的方块代替头像，保持神秘 -->
+            <div class="pixel-block">Lan.</div>
+          </div>
+          
+          <nav class="retro-nav">
+            <button class="nav-btn" @click="go('/about')">
+              [ 关于我 ]
+            </button>
+            <button class="nav-btn" @click="go('/68fc/squad')">
+              [ 68 FC ]
+            </button>
+            <button class="nav-btn" @click="go('/liverpool')">
+              [ 利物浦 ]
+            </button>
+          </nav>
+
+          <div class="status-box">
+            <p>Mood: 🧊</p>
+            <p>Music: OFF</p>
+            <p>Loc: Unknown</p>
+          </div>
+        </aside>
+
+        <!-- 右侧：主要展示区 -->
+        <main class="main-display">
+          <h1 class="pixel-title">Hello, World.</h1>
+          <div class="divider"></div>
+          <p class="intro-text">
+            这是一个不存在的地方。<br>
+            日日重复同样的事，遵循着与昨日相同的惯例，若能避开猛烈的狂喜，自然也不会有悲痛的来袭。<br>
+            <span class="highlight">银杏叶</span> 是蓝色的，<br>
+            正如忧郁是快乐的底色。
+          </p>
+
+          <!-- 模拟一个更新日志 -->
+          <div class="updates-box">
+            <div class="box-title">/// LATEST UPDATES</div>
+            <ul>
+              <li><span class="date">2025.01</span> :: System Init... OK</li>
+              <li><span class="date">2025.02</span> :: 68FC Database Loaded.</li>
+              <li><span class="date">2025.03</span> :: Waiting for connection...</li>
+            </ul>
+          </div>
+        </main>
+
+      </div>
+      
+      <!-- 窗口底部状态栏 -->
+      <div class="window-footer">
+        <span>Guest User</span>
+        <span class="blink">|</span>
       </div>
     </div>
 
-    <!-- 4. 技能卡片 (Bento Grid 风格) -->
-    <div class="section-title">Tech Stack</div>
-    <div class="tech-grid">
-      <div class="tech-card" v-for="skill in skills" :key="skill.name">
-        <img :src="skill.icon" :alt="skill.name" />
-        <span>{{ skill.name }}</span>
-      </div>
-    </div>
-
-    <!-- 5. 底部名言 -->
-    <div class="footer-quote">
-      "Stay hungry, stay foolish."
-    </div>
+    <!-- 底部版权 -->
+    <footer class="retro-footer">
+      © 2025 Lan. Designed with <span style="color:blue">♥</span> and Ginkgo.
+    </footer>
 
   </div>
 </template>
 
 <style scoped>
-/* --- 全局容器 --- */
-.about-wrapper {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 60px 20px;
-  font-family: 'Georgia', serif; /* 使用衬线字体，更有书卷气 */
-  color: #333;
+/* 引入复古像素字体 (如果网络不好可能回退到等宽字体) */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+/* --- 核心背景：蓝色银杏叶平铺 --- */
+.retro-body {
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'VT323', 'Courier New', monospace;
+  /* 
+     这里使用 SVG Data URI 绘制了一个抽象的蓝色银杏叶图案 
+     并设置为 repeat (平铺)
+  */
+  background-color: #000;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 60 C 30 60 20 40 10 30 C 0 20 10 0 30 10 C 50 0 60 20 50 30 C 40 40 30 60 30 60' fill='none' stroke='%230055ff' stroke-width='1' opacity='0.5'/%3E%3Cpath d='M30 60 L 30 35' stroke='%230055ff' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 60px 60px; /* 控制叶子大小 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ccc;
 }
 
-/* --- 1. Hero 区域 --- */
-.hero-section {
+/* --- 1. 滚动字幕 --- */
+.marquee-container {
+  width: 100%;
+  background: #0000aa; /* 经典的 Windows 蓝屏蓝 */
+  color: #fff;
+  border-bottom: 2px solid #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 1.2rem;
+  padding: 5px 0;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: scroll 15s linear infinite;
+  padding-left: 100%;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* --- 2. 主窗口 --- */
+.main-window {
+  margin-top: 40px;
+  width: 90%;
+  max-width: 800px;
+  background: rgba(0, 0, 0, 0.85); /* 半透明黑底 */
+  border: 2px solid #555;
+  box-shadow: 8px 8px 0px #0000aa; /* 硬阴影 */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 窗口标题栏 */
+.window-header {
+  background: linear-gradient(90deg, #000088, #0000ff);
+  padding: 5px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 80px;
+  border-bottom: 2px solid #555;
 }
 
-.title {
-  font-size: 3rem;
-  font-weight: 700;
-  margin: 0;
-  font-family: 'Times New Roman', serif;
-  letter-spacing: -1px;
-}
-
-.subtitle {
-  font-family: 'Roboto', sans-serif; /* 副标题用无衬线 */
-  color: #666;
-  font-size: 1.1rem;
-  margin-top: 10px;
-  font-weight: 300;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-/* 拍立得照片风格 */
-.polaroid {
-  background: #fff;
-  padding: 10px 10px 30px 10px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  transform: rotate(3deg); /* 稍微歪一点，更有生活感 */
-  transition: transform 0.3s;
-}
-.polaroid:hover {
-  transform: rotate(0deg) scale(1.05);
-}
-.polaroid img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  filter: grayscale(20%); /* 稍微加点黑白滤镜，更有质感 */
-}
-.caption {
-  font-family: 'Caveat', cursive; /* 最好引入一个手写体 */
-  text-align: center;
-  margin-top: 10px;
-  color: #555;
-  font-size: 0.9rem;
-}
-
-/* --- 2. 叙事段落 --- */
-.story-section {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #444;
-  margin-bottom: 60px;
-}
-.story-section p {
-  margin-bottom: 20px;
-}
-/* 首字下沉效果 */
-.drop-cap::first-letter {
-  font-size: 3.5rem;
-  float: left;
-  line-height: 0.8;
-  margin-right: 10px;
+.win-title {
+  color: #fff;
   font-weight: bold;
-  color: #1a73e8; /* 强调色 */
-}
-
-/* --- 3. 时间轴 --- */
-.section-title {
-  font-family: 'Roboto', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #999;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
-  margin-bottom: 30px;
   letter-spacing: 1px;
 }
 
-.timeline {
-  border-left: 2px solid #eee;
-  padding-left: 30px;
-  margin-bottom: 60px;
-}
-
-.timeline-item {
-  position: relative;
-  margin-bottom: 40px;
-}
-
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  left: -37px;
-  top: 5px;
-  width: 12px;
-  height: 12px;
-  background: #fff;
-  border: 2px solid #1a73e8;
-  border-radius: 50%;
-}
-
-.year {
-  font-family: 'Roboto', sans-serif;
-  font-size: 0.85rem;
-  color: #1a73e8;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.timeline-item h3 {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.timeline-item p {
-  margin: 5px 0 0;
-  color: #666;
-  font-size: 0.95rem;
-}
-
-/* --- 4. 技术栈卡片 --- */
-.tech-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 20px;
-  margin-bottom: 60px;
-}
-
-.tech-card {
-  background: #f9f9f9;
-  padding: 15px;
-  border-radius: 8px;
+.win-controls .btn {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: #ccc;
+  color: #000;
   text-align: center;
-  border: 1px solid transparent;
-  transition: all 0.3s;
+  line-height: 14px;
+  font-size: 12px;
+  margin-left: 4px;
+  border: 1px outset #fff;
+  cursor: pointer;
 }
 
-.tech-card:hover {
-  background: #fff;
-  border-color: #eee;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-  transform: translateY(-3px);
+/* 窗口内容布局 */
+.window-content {
+  display: flex;
+  min-height: 400px;
 }
 
-.tech-card img {
-  height: 30px;
-  margin-bottom: 10px;
+/* 左侧边栏 */
+.sidebar {
+  width: 200px;
+  border-right: 2px dashed #333;
+  padding: 20px;
+  text-align: center;
+  background: #050505;
 }
 
-.tech-card span {
+.pixel-block {
+  width: 100px;
+  height: 100px;
+  background: #0000aa;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #fff;
+  border: 2px solid #fff;
+  image-rendering: pixelated;
+}
+
+.nav-btn {
   display: block;
-  font-family: 'Roboto', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
+  width: 100%;
+  background: transparent;
+  border: 1px solid #333;
+  color: #0099ff;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-family: inherit;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.1s;
+  text-align: left;
 }
 
-/* --- 5. 底部 --- */
-.footer-quote {
-  text-align: center;
-  font-style: italic;
-  color: #ccc;
-  font-size: 1.5rem;
-  font-family: 'Times New Roman', serif;
-  margin-top: 80px;
+.nav-btn:hover {
+  background: #0000aa;
+  color: #fff;
+  border-color: #fff;
+}
+
+.status-box {
+  margin-top: 30px;
+  border: 1px inset #333;
+  padding: 10px;
+  font-size: 0.9rem;
+  text-align: left;
+  color: #666;
+}
+
+/* 右侧主内容 */
+.main-display {
+  flex: 1;
+  padding: 30px;
+  position: relative;
+  /* 增加一点扫描线效果 */
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 2px, 3px 100%;
+}
+
+.pixel-title {
+  margin: 0;
+  font-size: 3rem;
+  color: #fff;
+  text-shadow: 2px 2px 0px #0000aa;
+}
+
+.divider {
+  height: 2px;
+  background: #0099ff;
+  margin: 20px 0;
+  width: 50px;
+}
+
+.intro-text {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: #bbb;
+}
+
+.highlight {
+  color: #00ffff;
+  text-decoration: underline;
+}
+
+.updates-box {
+  margin-top: 40px;
+  border: 1px solid #333;
+  padding: 15px;
+  background: #0a0a0a;
+}
+
+.box-title {
+  background: #333;
+  color: #fff;
+  padding: 2px 5px;
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.updates-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.updates-box li {
+  margin-bottom: 5px;
+  font-size: 1rem;
+}
+
+.date {
+  color: #0099ff;
+}
+
+/* 底部状态栏 */
+.window-footer {
+  background: #ccc;
+  color: #000;
+  padding: 2px 10px;
+  font-size: 0.9rem;
+  border-top: 2px solid #fff;
+}
+
+.blink {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+.retro-footer {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #555;
 }
 
 /* 移动端适配 */
-@media (max-width: 600px) {
-  .hero-section {
-    flex-direction: column-reverse;
-    text-align: center;
-    gap: 30px;
+@media (max-width: 700px) {
+  .window-content {
+    flex-direction: column;
   }
-  .title { font-size: 2.5rem; }
-  .polaroid { transform: rotate(0deg); }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px dashed #333;
+    box-sizing: border-box;
+  }
+  .pixel-title {
+    font-size: 2rem;
+  }
 }
 </style>

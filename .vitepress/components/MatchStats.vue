@@ -5,7 +5,6 @@ import * as echarts from 'echarts'
 const props = defineProps({
   homeName: { type: String, default: '主队' },
   awayName: { type: String, default: '客队' },
-  // 数据格式：[{ name: '射门', home: 14, away: 18 }, ...]
   stats: { type: Array, required: true }
 })
 
@@ -16,146 +15,88 @@ const initChart = () => {
   if (!chartRef.value) return
   myChart = echarts.init(chartRef.value)
 
-  // 提取数据
   const categories = props.stats.map(item => item.name)
-  const homeData = props.stats.map(item => -item.home) // 左侧用负数实现
+  const homeData = props.stats.map(item => -item.home)
   const awayData = props.stats.map(item => item.away)
 
   const option = {
     backgroundColor: 'transparent',
-    tooltip: {
-      trigger: 'axis',
+    // 提示框暗黑风
+    tooltip: { 
+      trigger: 'axis', 
       axisPointer: { type: 'shadow' },
+      backgroundColor: 'rgba(0,0,0,0.8)',
+      borderColor: '#00f3ff',
+      textStyle: { color: '#fff', fontFamily: 'monospace' },
       formatter: (params) => {
-        // 自定义提示框，把负数转回正数显示
-        const home = params[0];
-        const away = params[1];
-        return `${home.name}<br/>
-                ${home.seriesName}: ${Math.abs(home.value)}<br/>
-                ${away.seriesName}: ${away.value}`;
+        const home = params[0]; const away = params[1];
+        return `${home.name}<br/>${home.seriesName}: ${Math.abs(home.value)}<br/>${away.seriesName}: ${away.value}`;
       }
     },
-    legend: {
-      data: [props.homeName, props.awayName],
-      bottom: 0,
-      textStyle: { color: '#666' }
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '10%',
-      containLabel: true
-    },
-    xAxis: [
-      {
-        type: 'value',
-        show: false // 隐藏 X 轴刻度
-      }
-    ],
-    yAxis: [
-      {
-        type: 'category',
-        axisTick: { show: false },
-        data: categories,
-        axisLabel: {
-          color: '#333',
-          fontWeight: 'bold',
-          fontSize: 13,
-          align: 'center',
-          margin: 0, // 让文字居中
-          padding: [0, 0, 0, 0] // 特殊处理：文字其实是盖在中间的
-        },
-        // 让 Y 轴线在中间
-        position: 'center', 
-        axisLine: { show: false } // 隐藏轴线
-      }
-    ],
+    grid: { left: '3%', right: '4%', bottom: '10%', containLabel: true },
+    xAxis: [{ type: 'value', show: false }],
+    yAxis: [{
+      type: 'category', axisTick: { show: false }, data: categories,
+      axisLabel: { color: '#00f3ff', fontWeight: 'bold', fontFamily: 'monospace' }, // 青色字体
+      position: 'center', axisLine: { show: false }
+    }],
     series: [
       {
-        name: props.homeName,
-        type: 'bar',
-        stack: 'Total',
-        data: homeData,
-        itemStyle: {
-          color: '#1a73e8', // 蓝色 (RSE)
-          borderRadius: [5, 0, 0, 5]
+        name: props.homeName, type: 'bar', stack: 'Total', data: homeData,
+        itemStyle: { 
+          color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{ offset: 0, color: '#000' }, { offset: 1, color: '#00f3ff' }]), // 赛博蓝渐变
+          borderRadius: [5, 0, 0, 5] 
         },
-        label: {
-          show: true,
-          position: 'left',
-          formatter: (v) => Math.abs(v.value) // 显示正数
-        }
+        label: { show: true, position: 'left', formatter: (v) => Math.abs(v.value), color: '#fff' }
       },
       {
-        name: props.awayName,
-        type: 'bar',
-        stack: 'Total',
-        data: awayData,
-        itemStyle: {
-          color: '#e73c7e', // 红色 (SGI)
-          borderRadius: [0, 5, 5, 0]
+        name: props.awayName, type: 'bar', stack: 'Total', data: awayData,
+        itemStyle: { 
+          color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{ offset: 0, color: '#ff0055' }, { offset: 1, color: '#000' }]), // 赛博粉渐变
+          borderRadius: [0, 5, 5, 0] 
         },
-        label: {
-          show: true,
-          position: 'right'
-        }
+        label: { show: true, position: 'right', color: '#fff' }
       }
     ]
   }
-
   myChart.setOption(option)
 }
 
-onMounted(() => {
-  initChart()
-  window.addEventListener('resize', () => myChart?.resize())
-})
-
-onUnmounted(() => {
-  myChart?.dispose()
-})
+onMounted(() => { initChart(); window.addEventListener('resize', () => myChart?.resize()) })
+onUnmounted(() => { myChart?.dispose() })
 </script>
 
 <template>
-  <div class="match-stats-container">
-    <!-- 比分板 -->
+  <div class="cyber-stats">
     <div class="score-board">
       <div class="team home">{{ homeName }}</div>
-      <div class="score">VS</div>
+      <div class="vs">VS</div>
       <div class="team away">{{ awayName }}</div>
     </div>
-    
-    <!-- 图表 -->
     <div ref="chartRef" class="chart-box"></div>
   </div>
 </template>
 
 <style scoped>
-.match-stats-container {
-  background: #fff;
-  border-radius: 12px;
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+.cyber-stats {
+  background: #050505;
+  border: 1px solid #333;
   padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   margin: 20px 0;
-  border: 1px solid #eee;
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+  font-family: 'Share Tech Mono', monospace;
 }
 
 .score-board {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 20px;
-  font-weight: 900;
-  margin-bottom: 10px;
-  padding: 0 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 24px; font-weight: bold; border-bottom: 2px solid #333; padding-bottom: 10px;
 }
 
-.team.home { color: #1a73e8; }
-.team.away { color: #e73c7e; }
-.score { color: #ccc; font-size: 16px; }
+.team.home { color: #00f3ff; text-shadow: 0 0 5px #00f3ff; }
+.team.away { color: #ff0055; text-shadow: 0 0 5px #ff0055; }
+.vs { color: #fff; font-style: italic; }
 
-.chart-box {
-  width: 100%;
-  height: 400px;
-}
+.chart-box { width: 100%; height: 400px; }
 </style>

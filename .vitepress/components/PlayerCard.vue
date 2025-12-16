@@ -1,84 +1,103 @@
 <script setup>
 defineProps({
-  name: String,      // 姓名
-  number: String,    // 号码
-  position: String,  // 位置 (FW/MF/DF/GK)
-  value: String,     // 身价 (你的手稿数据)
-  desc: String,      // 短评
-  tags: Array        // 标签 (如：金球奖、吐饼)
+  name: String, number: String, position: String, value: String, desc: String, tags: Array
 })
-
-// 根据位置返回不同的颜色类名
-const getPosClass = (pos) => {
-  if (pos === 'GK') return 'pos-gk'
-  if (pos.includes('DF')) return 'pos-df'
-  if (pos.includes('MF')) return 'pos-mf'
-  return 'pos-fw'
-}
 </script>
 
 <template>
-  <div class="player-card">
-    <div class="card-header">
-      <div class="number">{{ number }}</div>
-      <div class="position" :class="getPosClass(position)">{{ position }}</div>
-    </div>
-    <div class="card-body">
-      <div class="avatar-placeholder">{{ name[0] }}</div>
-      <h3 class="name">{{ name }}</h3>
-      <div class="value">身价: {{ value }}</div>
-      <div class="tags">
-        <span v-for="tag in tags" :key="tag" class="tag">{{ tag }}</span>
+  <div class="retro-card">
+    <div class="card-inner">
+      <!-- 头部：像素边框 -->
+      <div class="card-header">
+        <span class="no">NO.{{ number }}</span>
+        <span class="pos">[{{ position }}]</span>
       </div>
-      <p class="desc">{{ desc }}</p>
+      
+      <!-- 主体 -->
+      <div class="card-body">
+        <div class="avatar-pixel">
+          {{ name[0] }}
+        </div>
+        <div class="info">
+          <h3 class="name">{{ name }}</h3>
+          <div class="stat-line">
+            <span class="label">RATING:</span>
+            <span class="val">{{ value }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 标签 -->
+      <div class="tags">
+        <span v-for="tag in tags" :key="tag" class="tag">&lt;{{ tag }}&gt;</span>
+      </div>
+
+      <!-- 描述 -->
+      <div class="desc-box">
+        <p>{{ desc }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.player-card {
-  background: white;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
-  position: relative;
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+.retro-card {
+  font-family: 'VT323', monospace;
+  background: #000;
+  border: 2px solid #555;
+  /* 经典的像素阴影 */
+  box-shadow: 4px 4px 0 #0000aa; 
+  margin-bottom: 20px;
+  transition: transform 0.2s;
 }
-.player-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+
+.retro-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #0099ff;
+  border-color: #fff;
 }
+
+.card-inner { padding: 15px; }
 
 .card-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 16px;
-  background: #f8f9fa;
-  border-bottom: 1px solid #eee;
-}
-.number { font-size: 24px; font-weight: 900; color: #ccc; font-style: italic; }
-.position { 
-  font-weight: bold; padding: 2px 8px; border-radius: 4px; font-size: 12px; 
-  display: flex; align-items: center;
-}
-/* 位置颜色 */
-.pos-gk { background: #fff3cd; color: #856404; } /* 黄色 */
-.pos-df { background: #d4edda; color: #155724; } /* 绿色 */
-.pos-mf { background: #d1ecf1; color: #0c5460; } /* 蓝色 */
-.pos-fw { background: #f8d7da; color: #721c24; } /* 红色 */
-
-.card-body { padding: 20px; text-align: center; }
-
-.avatar-placeholder {
-  width: 60px; height: 60px; background: #eee; border-radius: 50%;
-  margin: 0 auto 10px; line-height: 60px; font-size: 24px; font-weight: bold; color: #666;
+  display: flex; justify-content: space-between;
+  border-bottom: 1px dashed #333;
+  padding-bottom: 5px; margin-bottom: 10px;
+  color: #0099ff; font-size: 1.2rem;
 }
 
-.name { margin: 0; font-size: 18px; color: #333; }
-.value { font-size: 14px; color: #1a73e8; margin: 5px 0; font-weight: bold; }
+.card-body {
+  display: flex; gap: 15px; align-items: center; margin-bottom: 15px;
+}
 
-.tags { display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; margin: 10px 0; }
-.tag { font-size: 12px; background: #f1f3f4; padding: 2px 8px; border-radius: 10px; color: #555; }
+.avatar-pixel {
+  width: 50px; height: 50px;
+  background: #0000aa; color: #fff;
+  border: 2px solid #fff;
+  display: flex; justify-content: center; align-items: center;
+  font-size: 1.5rem;
+}
 
-.desc { font-size: 13px; color: #666; margin-top: 10px; text-align: left; line-height: 1.5; }
+.name {
+  margin: 0; font-size: 1.8rem; color: #fff; letter-spacing: 2px; line-height: 1;
+}
+
+.stat-line { margin-top: 5px; font-size: 1rem; }
+.label { color: #666; margin-right: 5px; }
+.val { color: #00ffff; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.tag {
+  background: #111; color: #aaa; padding: 2px 6px; font-size: 0.9rem; border: 1px solid #333;
+}
+
+.desc-box {
+  background: #0a0a0a;
+  border: 1px inset #333;
+  padding: 8px;
+  font-size: 1rem; color: #ccc;
+  line-height: 1.4;
+}
 </style>
