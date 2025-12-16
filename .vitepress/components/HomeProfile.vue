@@ -40,7 +40,6 @@ onMounted(() => {
     </Transition>
 
     <!-- 2. 背景层 (Z-Index: 1) -->
-    <!-- 注意：把背景单独拿出来，不和内容混在一起 -->
     <div class="bg-layer" :class="{ 'show': !loading }">
       <div class="pixel-art-bg"></div>
       <div class="grid-overlay"></div>
@@ -60,7 +59,6 @@ onMounted(() => {
           <div class="pixel-card" @click="go('/about')">
             <div class="card-icon">👨‍💻</div>
             <div class="card-text">ME</div>
-            <!-- 装饰角 -->
             <div class="corner lt"></div><div class="corner rt"></div><div class="corner lb"></div><div class="corner rb"></div>
           </div>
 
@@ -88,10 +86,11 @@ onMounted(() => {
 </template>
 
 <style scoped>
-@import url('https://fonts.loli.net/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 /* --- 容器设置 --- */
 .pixel-body {
-  position: fixed; /* 强制固定，防止滚动 */
+  position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100vh;
   background: #000;
@@ -111,25 +110,27 @@ onMounted(() => {
 .fade-leave-active { transition: opacity 1s; }
 .fade-leave-to { opacity: 0; }
 
-/* --- 2. 背景层样式 (修复版) --- */
+/* --- 2. 背景层样式 (已修改) --- */
 .bg-layer {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  z-index: 1; /* 最底层 */
+  z-index: 1;
   opacity: 0; transition: opacity 2s;
 }
 .bg-layer.show { opacity: 1; }
 
 .pixel-art-bg {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  /* 确保路径正确 */
-  background: url('/background/bg.jpg') no-repeat center center;
+  
+  /* ▼▼▼ 修改点：使用你的新图片 ▼▼▼ */
+  /* 请确保图片名为 pixel-bg.jpg 或 .png，并放在 public/background/ 下 */
+  background: url('/background/pixel-bg.jpg') no-repeat center center;
   background-size: cover;
   
-  /* 核心像素化逻辑 */
-  transform: scale(10); /* 放大10倍 */
-  transform-origin: center center;
-  image-rendering: pixelated; /* 强制马赛克 */
-  filter: brightness(0.6) contrast(1.2);
+  /* ▼▼▼ 关键点：保持像素锐利，不模糊 ▼▼▼ */
+  image-rendering: pixelated; 
+  
+  /* 稍微压暗一点，保证前景文字清晰 */
+  filter: brightness(0.7);
 }
 
 .grid-overlay {
@@ -142,12 +143,12 @@ onMounted(() => {
   pointer-events: none;
 }
 
-/* --- 3. 内容层样式 (独立出来) --- */
+/* --- 3. 内容层样式 --- */
 .content-layer {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  z-index: 10; /* 确保在背景之上 */
+  z-index: 10;
   display: flex; flex-direction: column; justify-content: center; align-items: center;
-  opacity: 0; transition: opacity 1s 0.5s; /* 稍微延迟一点出现 */
+  opacity: 0; transition: opacity 1s 0.5s;
 }
 .content-layer.show { opacity: 1; }
 
@@ -174,14 +175,13 @@ onMounted(() => {
   display: flex; flex-direction: column; justify-content: center; align-items: center;
   cursor: pointer;
   transition: all 0.2s;
-  /* 像素阴影 */
   box-shadow: 8px 8px 0 #000;
 }
 
 .pixel-card:hover {
   background: #0055ff;
-  transform: translate(-4px, -4px); /* 悬停浮起 */
-  box-shadow: 12px 12px 0 #00ffff; /* 影子变色变长 */
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 #00ffff;
   border-color: #00ffff;
 }
 
