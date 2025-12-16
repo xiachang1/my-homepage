@@ -7,7 +7,7 @@ export default defineConfig({
 appearance: false, 
 
 themeConfig: {
-    outline:false,
+    outline: false,
     // 1. 顶部导航：直达 68FC 专区
     nav: [
       { text: '🏠 首页', link: '/' },

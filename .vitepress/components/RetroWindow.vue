@@ -1,8 +1,9 @@
 <script setup>
 import { useRouter, useRoute } from 'vitepress'
+import { computed } from 'vue'
 
 const props = defineProps({
-  title: { type: String, default: 'C:\\System\\68FC.exe' }
+  title: { type: String, default: 'C:\\System\\Explorer.exe' }
 })
 
 const router = useRouter()
@@ -12,26 +13,57 @@ const go = (path) => {
   router.go(path)
 }
 
-// 判断当前链接是否激活，用于高亮显示
 const isActive = (path) => route.path.includes(path)
+
+// --- 1. 定义两套菜单数据 ---
+
+// 68FC 的菜单
+const menu68FC = [
+  { text: '球队阵容', link: '/68fc/squad', icon: '📁' },
+  { text: '赛事中心', link: '/68fc/matches', icon: '📊' },
+  { text: '队史荣誉', link: '/68fc/history', icon: '📜' }
+]
+
+// 利物浦的菜单 (在这里定义利物浦侧边栏的内容)
+const menuLFC = [
+  { text: '利物浦首页', link: '/liverpool/', icon: '🔴' },
+  // 如果以后有更多利物浦页面，可以在这里加，比如：
+  // { text: '伊斯坦布尔', link: '/liverpool/istanbul', icon: '🏆' }
+]
+
+// --- 2. 智能判断当前是哪个板块 ---
+const isLiverpool = computed(() => route.path.includes('/liverpool'))
+
+// 根据当前路径，决定显示哪套菜单
+const currentMenu = computed(() => {
+  if (isLiverpool.value) {
+    return menuLFC
+  } else {
+    return menu68FC // 默认显示 68FC
+  }
+})
+
+// --- 3. 动态侧边栏标题 ---
+const sidebarTitle = computed(() => isLiverpool.value ? 'LFC ARCHIVE' : '68FC EXPLORER')
+
 </script>
 
 <template>
   <div class="retro-container">
-    <!-- 主窗口 -->
     <div class="main-window">
       
-      <!-- 1. 窗口标题栏 (顶部导航) -->
-      <div class="window-header">
+      <!-- 窗口标题栏 -->
+      <div class="window-header" :class="{ 'header-lfc': isLiverpool }">
         <div class="header-left">
-          <span class="app-icon">⚽</span>
+          <span class="app-icon">{{ isLiverpool ? '🔴' : '⚽' }}</span>
           <span class="win-title">{{ title }}</span>
         </div>
-        <!-- 这里的按钮模拟系统操作，也可以做成回首页 -->
         <div class="win-controls">
           <button class="sys-btn" @click="go('/')" title="返回首页">Home</button>
-          <button class="sys-btn" @click="go('/about')" title="切换到关于我">About</button>
-          <button class="sys-btn" @click="go('/liverpool')" title="切换到利物浦">LFC</button>
+          <!-- 如果在利物浦页面，显示去68FC的按钮；反之亦然 -->
+          <button v-if="isLiverpool" class="sys-btn" @click="go('/68fc/squad')">68FC</button>
+          <button v-else class="sys-btn" @click="go('/liverpool')">LFC</button>
+          
           <span class="deco-btn">_</span>
           <span class="deco-btn">□</span>
           <span class="deco-btn close">×</span>
@@ -39,41 +71,40 @@ const isActive = (path) => route.path.includes(path)
       </div>
 
       <div class="window-body">
-        <!-- 2. 窗口内侧边栏 (代替 Sidebar) -->
+        <!-- 侧边栏 -->
         <aside class="inner-sidebar">
-          <div class="sidebar-title">EXPLORER</div>
+          <div class="sidebar-title">{{ sidebarTitle }}</div>
           
           <ul class="nav-list">
-            <li :class="{ active: isActive('/squad') }" @click="go('/68fc/squad')">
-              <span class="icon">📁</span> 球队阵容
-            </li>
-            <li :class="{ active: isActive('/matches') }" @click="go('/68fc/matches')">
-              <span class="icon">📊</span> 赛事中心
-            </li>
-            <li :class="{ active: isActive('/history') }" @click="go('/68fc/history')">
-              <span class="icon">📜</span> 队史荣誉
+            <!-- 使用 v-for 循环渲染动态菜单 -->
+            <li 
+              v-for="item in currentMenu" 
+              :key="item.link"
+              :class="{ active: isActive(item.link) }" 
+              @click="go(item.link)"
+            >
+              <span class="icon">{{ item.icon }}</span> {{ item.text }}
             </li>
           </ul>
 
           <div class="sidebar-footer">
             <div class="disk-info">
-              <span class="icon">💾</span> 68FC_DATA (C:)
+              <span class="icon">💾</span> {{ isLiverpool ? 'LFC_DATA (D:)' : '68FC_DATA (C:)' }}
             </div>
-            <div class="free-space">2025 MB free</div>
+            <div class="free-space">1892 MB free</div>
           </div>
         </aside>
 
-        <!-- 3. 内容显示区 -->
+        <!-- 内容区 -->
         <main class="inner-content">
           <div class="content-scroll">
-            <slot></slot> <!-- Markdown 内容在这里渲染 -->
+            <slot></slot>
           </div>
         </main>
       </div>
 
-      <!-- 底部状态栏 -->
       <div class="window-footer">
-        <span>User: Admin</span>
+        <span>User: {{ isLiverpool ? 'KOP' : 'Admin' }}</span>
         <span class="right">Ln 1, Col 1  UTF-8</span>
       </div>
     </div>
@@ -81,6 +112,8 @@ const isActive = (path) => route.path.includes(path)
 </template>
 
 <style scoped>
+/* ... (保留之前所有的 CSS 样式，不需要变动，只加下面这一点) ... */
+
 /* 容器 */
 .retro-container {
   display: flex;
@@ -99,10 +132,10 @@ const isActive = (path) => route.path.includes(path)
   box-shadow: 10px 10px 0 #0000aa;
   display: flex;
   flex-direction: column;
-  height: 85vh; /* 固定高度，内部滚动 */
+  height: 85vh; 
 }
 
-/* 标题栏 */
+/* 标题栏默认样式 (蓝色 - 68FC) */
 .window-header {
   background: linear-gradient(90deg, #000088, #0000ff);
   padding: 5px 10px;
@@ -112,11 +145,17 @@ const isActive = (path) => route.path.includes(path)
   border-bottom: 2px solid #555;
   flex-shrink: 0;
 }
+
+/* --- 新增：利物浦专属标题栏颜色 (红色) --- */
+.header-lfc {
+  background: linear-gradient(90deg, #8B0000, #C8102E) !important;
+}
+
 .win-title { color: #fff; font-weight: bold; letter-spacing: 1px; margin-left: 10px;}
 .app-icon { font-size: 1.2rem; }
 
 .sys-btn {
-  background: #1701e0; border: 1px outset #fff; cursor: pointer; margin-right: 10px;
+  background: #4c0099; border: 1px outset #fff; cursor: pointer; margin-right: 10px;
   font-family: inherit; font-size: 12px; padding: 2px 8px;
 }
 .sys-btn:hover { background: #fff; }
@@ -126,14 +165,12 @@ const isActive = (path) => route.path.includes(path)
 }
 .close { background: #ff5555; color: white; }
 
-/* 主体布局 */
 .window-body {
   display: flex;
   flex: 1;
-  overflow: hidden; /* 防止溢出 */
+  overflow: hidden; 
 }
 
-/* 侧边栏样式 */
 .inner-sidebar {
   width: 220px;
   background: #111;
@@ -165,7 +202,6 @@ const isActive = (path) => route.path.includes(path)
   padding: 15px; color: #555; font-size: 0.8rem; border-top: 1px solid #333;
 }
 
-/* 内容区样式 */
 .inner-content {
   flex: 1;
   background: #000;
@@ -174,9 +210,8 @@ const isActive = (path) => route.path.includes(path)
 }
 .content-scroll {
   height: 100%;
-  overflow-y: auto; /* 只让内容区滚动 */
+  overflow-y: auto; 
   padding: 30px;
-  /* 滚动条样式 */
   scrollbar-width: thin;
   scrollbar-color: #0055ff #111;
 }
@@ -184,7 +219,6 @@ const isActive = (path) => route.path.includes(path)
 .content-scroll::-webkit-scrollbar-track { background: #111; }
 .content-scroll::-webkit-scrollbar-thumb { background: #0055ff; }
 
-/* 底部栏 */
 .window-footer {
   background: #ccc; color: #000; padding: 2px 10px; font-size: 0.9rem;
   border-top: 2px solid #fff;
@@ -192,7 +226,6 @@ const isActive = (path) => route.path.includes(path)
   flex-shrink: 0;
 }
 
-/* 移动端适配 */
 @media (max-width: 768px) {
   .window-body { flex-direction: column; }
   .inner-sidebar { width: 100%; height: auto; border-right: none; border-bottom: 2px solid #555; }
