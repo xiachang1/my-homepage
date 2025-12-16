@@ -1,6 +1,8 @@
 ---
 title: 利物浦
-outline: deep
+layout: page
+navbar: false
+sidebar: false
 ---
 
 <!-- 1. 悬浮播放器组件 -->

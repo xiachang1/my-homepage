@@ -1,48 +1,100 @@
+/* =========================================
+   1. 字体引入 & 全局变量
+   ========================================= */
+/* 引入复古像素字体 和 通用字体 */
+@import url('https://fonts.loli.net/css2?family=VT323&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-/* --- 首页专用样式 (只有当页面 class 是 custom-home 时生效) --- */
+:root {
+  /* 强制暗色模式 */
+  color-scheme: dark;
+  
+  /* 覆盖 VitePress 默认颜色，防止闪白 */
+  --vp-c-bg: transparent; /* 让背景透明，透出 body 的银杏叶 */
+  --vp-c-bg-alt: transparent;
+  --vp-c-text-1: #ffffff;
+  --vp-c-text-2: rgba(255, 255, 255, 0.7); /* 修复了之前的语法错误 */
+}
 
-/* 1. 在首页隐藏官方组件 */
+/* =========================================
+   2. 全局基础样式 (Body & App)
+   ========================================= */
+body {
+  margin: 0;
+  overflow-x: hidden; /* 防止水平滚动条 */
+  
+  /* 核心风格：黑色底 + 蓝色银杏叶平铺 */
+  background-color: #000 !important;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 60 C 30 60 20 40 10 30 C 0 20 10 0 30 10 C 50 0 60 20 50 30 C 40 40 30 60 30 60' fill='none' stroke='%230055ff' stroke-width='1' opacity='0.3'/%3E%3Cpath d='M30 60 L 30 35' stroke='%230055ff' stroke-width='1'/%3E%3C/svg%3E") !important;
+  background-size: 60px 60px !important;
+  background-attachment: fixed !important; /* 背景固定，不随内容滚动 */
+  
+  /* 全局字体：优先像素风，其次代码风 */
+  font-family: 'VT323', 'Courier New', monospace; 
+}
+
+#app {
+  min-height: 100vh;
+  background: transparent !important;
+}
+
+/* =========================================
+   3. VitePress UI 强行覆盖 (去边栏/大纲)
+   ========================================= */
+/* 暴力隐藏右侧大纲 (Outline) */
+.vp-doc-aside, 
+.VPLocalNavOutlineDropdown, 
+.on-this-page {
+  display: none !important;
+}
+
+/* 隐藏左侧侧边栏 (Sidebar) - 如果 config 没关干净，这里双重保险 */
+.VPSidebar {
+  display: none !important;
+}
+
+/* 让内容区域居中且更宽 (因为没了侧边栏) */
+.VPDoc {
+  padding-right: 0 !important;
+}
+.container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+}
+
+/* 去除默认的内容内边距 */
+.VPContent {
+  padding: 0 !important;
+}
+
+/* =========================================
+   4. 首页专用样式 (.custom-home)
+   ========================================= */
+/* 只有首页隐藏顶部导航和页脚，其他页面(如About)如果需要可以显示 */
 .custom-home .VPNav, 
-.custom-home .VPFooter, 
-.custom-home .VPSidebar, 
+.custom-home .VPFooter,
 .custom-home .VPLocalNav {
   display: none !important;
 }
 
-/* 2. 在首页去除内边距 */
-.custom-home .VPContent {
-  padding: 0 !important;
-}
-
-/* --- 全局样式 --- */
-
-#app {
-  min-height: 100vh;
-}
-
-body {
-  margin: 0;
-  overflow-x: hidden;
-}
-/* --- medium-zoom 终极修复补丁 --- */
-
-/* 当图片被放大打开时 */
+/* =========================================
+   5. 插件修复 (medium-zoom 图片放大)
+   ========================================= */
+/* 放大时强制恢复原比例，防止被裁切 */
 .medium-zoom-image--opened {
-  /* 1. 核心修复：防止图片保持卡片里的裁切状态，强制显示全貌 */
   object-fit: contain !important;
-  
-  /* 2. 确保背景是透明的 (配合插件的黑色遮罩) */
   background: transparent !important;
-  
-  /* 3. 确保层级最高，不被其他东西挡住 */
   z-index: 99999 !important;
-  
-  /* --- ⚠️ 删除了之前的 width/height/max-width 设置 --- */
-  /* 让插件自动计算大小，这样它就能完美适配屏幕了 */
 }
 
-/* 修复遮罩层级 */
+/* 遮罩层级修复 */
 .medium-zoom-overlay {
   z-index: 99998 !important;
+}
+
+/* 给可点击图片增加放大镜手势 */
+.vp-doc img, 
+.gallery-grid img,
+.player-card img {
+  cursor: zoom-in;
 }

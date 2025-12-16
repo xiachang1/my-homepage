@@ -1,8 +1,10 @@
 ---
 title: 队史与荣誉
-outline: deep
+layout: page
+navbar: false
+sidebar: false
 ---
-
+<RetroWindow title="C:\SEFA\Database\History.doc">
 # 📜 俱乐部编年史 (Club History)
 
 > **"一切始于 23 年寒冷的冬天。"**
@@ -107,4 +109,5 @@ RSE 虽败犹荣，在少打一人的情况下展现了极强的韧性。而李�
 | **绝佳机会** | **2** | 0 |
 | **犯规** | 1 | **3** |
 
-> **战术分析**：SGI 占据了绝对的控球优势（70%），但在把握绝佳机会的能力上，RSE 的防守反击更具威胁。
+**战术分析**：SGI 占据了绝对的控球优势（70%），但在把握绝佳机会的能力上，RSE 的防守反击更具威胁。
+</RetroWindow>

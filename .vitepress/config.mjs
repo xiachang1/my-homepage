@@ -1,12 +1,13 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: "王一尧的主页",
+  title: "Lan Wang",
   description: "Code, Football, and Art.",
   
-  // appearance: true, (已移除)
+appearance: false, 
 
 themeConfig: {
+    outline:false,
     // 1. 顶部导航：直达 68FC 专区
     nav: [
       { text: '🏠 首页', link: '/' },

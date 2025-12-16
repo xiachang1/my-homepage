@@ -41,8 +41,7 @@ defineProps({
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
+@import url('https://fonts.loli.net/css2?family=VT323&display=swap');
 .retro-card {
   font-family: 'VT323', monospace;
   background: #000;

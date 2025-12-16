@@ -88,8 +88,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
+@import url('https://fonts.loli.net/css2?family=VT323&display=swap');
 /* --- 容器设置 --- */
 .pixel-body {
   position: fixed; /* 强制固定，防止滚动 */

@@ -1,8 +1,10 @@
 ---
 title: 赛事中心
-outline: deep
+layout: page
+navbar: false
+sidebar: false
 ---
-
+<RetroWindow title="C:\SEFA\Database\Match_Logs.db">
 # 📅 赛事中心 (Match Center)
 
 > 记录每一场从野球场到正规军的激烈对决。
@@ -50,3 +52,4 @@ outline: deep
 | **2024.06.06** | **SGI** | **5 : 1** | RSE | 李梓源四子登科，惨案 |
 | **2024.11.29** | SGI | **2 : 3** | **RSE** | 史诗级逆转，红牌点球大战 |
 | **2025.01.03** | SGI | **0 : 3** | **RSE** | 争人风波后的首战 |
+</RetroWindow >

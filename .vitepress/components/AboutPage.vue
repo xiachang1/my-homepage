@@ -99,8 +99,7 @@ const go = (path) => {
 
 <style scoped>
 /* 引入复古像素字体 (如果网络不好可能回退到等宽字体) */
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
+@import url('https://fonts.loli.net/css2?family=VT323&display=swap');
 /* --- 核心背景：蓝色银杏叶平铺 --- */
 .retro-body {
   width: 100%;
