@@ -13,6 +13,7 @@ import LiverpoolLyrics from '../components/liverpool/LiverpoolLyrics.vue'
 import LiverpoolLegends from '../components/liverpool/LiverpoolLegends.vue'
 import AboutPage from '../components/AboutPage.vue'
 import RetroWindow from '../components/RetroWindow.vue'
+import ContactPage from '../components/ContactPage.vue'
 
 export default {
   extends: DefaultTheme,
@@ -49,5 +50,6 @@ export default {
     app.component('LiverpoolLegends', LiverpoolLegends)
     app.component('AboutPage', AboutPage)
     app.component('RetroWindow', RetroWindow)
+    app.component('ContactPage', ContactPage)
   }
 }
