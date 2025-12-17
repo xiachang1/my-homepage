@@ -60,10 +60,10 @@ const sidebarTitle = computed(() => isLiverpool.value ? 'LFC ARCHIVE' : '68FC EX
         </div>
         <div class="win-controls">
           <button class="sys-btn" @click="go('/')" title="返回首页">Home</button>
+          <button class="sys-btn" @click="go('/about')" title="关于我">about</button>
           <!-- 如果在利物浦页面，显示去68FC的按钮；反之亦然 -->
-          <button v-if="isLiverpool" class="sys-btn" @click="go('/68fc/squad')">68FC</button>
-          <button v-else class="sys-btn" @click="go('/liverpool')">LFC</button>
-          
+          <button v-if="isLiverpool" class="sys-btn" @click="go('/68fc/squad')" title="68FC">68FC</button>
+          <button v-else class="sys-btn" @click="go('/liverpool')" title="LFC">LFC</button>
           <span class="deco-btn">_</span>
           <span class="deco-btn">□</span>
           <span class="deco-btn close">×</span>
