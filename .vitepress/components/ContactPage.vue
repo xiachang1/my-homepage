@@ -88,21 +88,23 @@ const copyEmail = async () => {
 
 /* 标题样式 */
 .terminal-title {
-  grid-column: 1 / -1; /* 跨越所有列 */
+  grid-column: 1 / -1;
   font-size: 2.5rem;
-  color: #00ff00;
+  /* ▼▼▼ 加 !important 防止被全局样式覆盖 ▼▼▼ */
+  color: #00ff00 !important; 
   text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
   text-align: center;
   margin-bottom: 0;
-  border: none;
+  border: none !important;
 }
 
 .terminal-quote {
   grid-column: 1 / -1;
   text-align: center;
-  color: #8f8;
-  border-left: 4px solid #00ff00;
-  background: rgba(0, 255, 0, 0.05);
+  /* ▼▼▼ 强制绿色 ▼▼▼ */
+  color: #8f8 !important;
+  border-left: 4px solid #00ff00 !important;
+  background: rgba(0, 255, 0, 0.05) !important;
   padding: 10px;
   margin-bottom: 30px;
   font-style: italic;
@@ -151,10 +153,31 @@ const copyEmail = async () => {
   color: inherit;
 }
 
-.command { color: #666; font-size: 1rem; }
-.value { color: #fff; font-size: 1.4rem; letter-spacing: 1px; word-break: break-all; }
-.cursor { animation: blink 1s infinite; color: #00ff00; }
-.arrow { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #444; font-size: 1.5rem; }
+.command { 
+  /* ▼▼▼ 强制浅绿或灰色 ▼▼▼ */
+  color: #88cc88 !important; 
+  font-size: 1rem; 
+}
+
+.value { 
+  /* ▼▼▼ 强制亮绿色 (原来是白色，现在统一成黑客绿更帅) ▼▼▼ */
+  color: #00ff00 !important; 
+  font-size: 1.4rem; 
+  letter-spacing: 1px; 
+  word-break: break-all; 
+  text-shadow: 0 0 5px rgba(0,255,0,0.3);
+}
+
+.cursor { 
+  animation: blink 1s infinite; 
+  color: #00ff00 !important; 
+}
+
+.arrow { 
+  position: absolute; right: 15px; top: 50%; transform: translateY(-50%); 
+  color: #00ff00 !important; /* 箭头也改绿 */
+  font-size: 1.5rem; 
+}
 
 /* 底部说明 */
 .channel-footer {
